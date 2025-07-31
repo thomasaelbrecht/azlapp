@@ -1,0 +1,22 @@
+services:
+  azl_db:
+    image: mongo:7.0
+    container_name: azl_db
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodata:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: azlapp-dev
+      MONGO_INITDB_ROOT_USERNAME: devuser
+      MONGO_INITDB_ROOT_PASSWORD: devpwd
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/azlapp-dev --quiet
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 3s
+
+volumes:
+  mongodata:

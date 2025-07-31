@@ -51,9 +51,6 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
     devDependencies:
-      '@eslint/eslintrc':
-        specifier: ^3
-        version: 3.3.1
       '@stylistic/eslint-plugin':
         specifier: ^5.2.2
         version: 5.2.2(eslint@9.32.0(jiti@2.5.1))

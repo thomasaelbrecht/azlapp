@@ -1,7 +1,26 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sidebar, SidebarContent, SidebarMenuButton, SidebarMenuItem, SidebarMenu, SidebarFooter, SidebarMenuSub, SidebarMenuSubItem } from "@/components/ui/sidebar";
-import { BellIcon, ChevronDownIcon, ChevronUp, EuroIcon, GraduationCapIcon, Grid2X2Icon, HomeIcon, MailIcon, MailPlusIcon, MailsIcon, NotebookPenIcon, NotepadTextDashedIcon, PiggyBankIcon, ShieldIcon, SlidersHorizontalIcon, User2Icon, Users2Icon, WavesLadderIcon, } from "lucide-react";
+import {
+  BellIcon,
+  ChevronDownIcon,
+  ChevronUp,
+  EuroIcon,
+  GraduationCapIcon,
+  Grid2X2Icon,
+  HomeIcon,
+  MailIcon,
+  MailPlusIcon,
+  MailsIcon,
+  NotebookPenIcon,
+  NotepadTextDashedIcon,
+  PiggyBankIcon,
+  ShieldIcon,
+  SlidersHorizontalIcon,
+  User2Icon,
+  Users2Icon,
+  WavesLadderIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 export function AppSidebar() {
@@ -183,10 +202,7 @@ export function AppSidebar() {
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                side="top"
-                className="w-[--radix-popper-anchor-width]"
-              >
+              <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
                 <DropdownMenuItem>
                   <span>Profiel</span>
                 </DropdownMenuItem>

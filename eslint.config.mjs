@@ -48,6 +48,12 @@ export default [
           ignore: ["jsx", "global"],
         },
       ],
+      "@stylistic/jsx-first-prop-new-line": ["error", "always"],
+      "@stylistic/jsx-max-props-per-line": ["error", {
+        maximum: 1,
+        when: "always"
+      }],
+      "react/jsx-closing-bracket-location": ["error", "tag-aligned"],
     },
   },
   prettier,

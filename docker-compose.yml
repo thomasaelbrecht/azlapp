@@ -1,22 +1,22 @@
 services:
   azl_db:
-    image: mongo:7.0
+    image: postgres:17.6-alpine
     container_name: azl_db
     restart: unless-stopped
     ports:
-      - 27017:27017
+      - 5432:5432
     volumes:
-      - mongodata:/data/db
+      - azl_db_data:/var/lib/postgresql/data
     environment:
-      MONGO_INITDB_DATABASE: azlapp-dev
-      MONGO_INITDB_ROOT_USERNAME: devuser
-      MONGO_INITDB_ROOT_PASSWORD: devpwd
+      POSTGRES_DB: azlapp-dev
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpwd
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/azlapp-dev --quiet
+      test: ["CMD-SHELL", "pg_isready -U devuser -d azlapp-dev"]
       interval: 30s
       timeout: 5s
       retries: 5
       start_period: 3s
 
 volumes:
-  mongodata:
+  azl_db_data:

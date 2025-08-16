@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "./sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "../components/layout/sidebar/app-sidebar";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -31,12 +31,7 @@ export default function RootLayout({
         <SidebarProvider>
           <AppSidebar />
 
-          <SidebarInset>
-            <main>
-              <SidebarTrigger />
-              {children}
-            </main>
-          </SidebarInset>
+          <SidebarInset>{children}</SidebarInset>
         </SidebarProvider>
       </body>
     </html>

@@ -1,14 +1,16 @@
 "use client";
 
-import { ChevronRight, HomeIcon, MailIcon, PiggyBankIcon, ShieldIcon, Users2Icon, WavesLadderIcon, type LucideIcon } from "lucide-react";
+import { ChevronRight, HomeIcon, MailIcon, PiggyBankIcon, ShieldIcon, Users2Icon, WavesLadderIcon } from "lucide-react";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "@/components/ui/sidebar";
+import Link from "next/link";
+import { ReactNode } from "react";
 
 interface SidebarItem {
   title: string;
   url: string;
-  icon?: LucideIcon;
+  icon?: ReactNode;
   isActive?: boolean;
   items?: { title: string; url: string }[];
 }
@@ -17,28 +19,28 @@ const navMainItems: SidebarItem[] = [
   {
     title: "Home",
     url: "/home",
-    icon: HomeIcon,
+    icon: <HomeIcon className="size-4 shrink-0" />,
     isActive: true,
   },
   {
     title: "Groepen",
     url: "/groups",
-    icon: WavesLadderIcon,
+    icon: <WavesLadderIcon className="size-4 shrink-0" />,
   },
   {
     title: "Prestaties",
     url: "/jobs",
-    icon: PiggyBankIcon,
+    icon: <PiggyBankIcon className="size-4 shrink-0" />,
   },
   {
     title: "Gebruikers",
     url: "/users",
-    icon: Users2Icon,
+    icon: <Users2Icon className="size-4 shrink-0" />,
   },
   {
     title: "Mail",
     url: "/mail",
-    icon: MailIcon,
+    icon: <MailIcon className="size-4 shrink-0" />,
     items: [
       {
         title: "Mail verzenden",
@@ -56,7 +58,7 @@ const navMainItems: SidebarItem[] = [
   },
   {
     title: "Admin",
-    icon: ShieldIcon,
+    icon: <ShieldIcon className="size-4 shrink-0" />,
     url: "#",
     items: [
       {
@@ -91,11 +93,11 @@ function NavMenuItem({ item }: { item: SidebarItem }) {
   if (!item.items || item.items.length === 0) {
     return (
       <SidebarMenuItem>
-        <SidebarMenuButton asChild>
-          <a href={item.url}>
-            {item.icon && <item.icon />}
+        <SidebarMenuButton asChild tooltip={item.title}>
+          <Link href={item.url}>
+            {item.icon}
             <span>{item.title}</span>
-          </a>
+          </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
     );
@@ -106,7 +108,7 @@ function NavMenuItem({ item }: { item: SidebarItem }) {
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
-            {item.icon && <item.icon />}
+            {item.icon}
             <span>{item.title}</span>
             <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
           </SidebarMenuButton>
@@ -116,9 +118,9 @@ function NavMenuItem({ item }: { item: SidebarItem }) {
             {item.items?.map((subItem) => (
               <SidebarMenuSubItem key={subItem.title}>
                 <SidebarMenuSubButton asChild>
-                  <a href={subItem.url}>
+                  <Link href={subItem.url}>
                     <span>{subItem.title}</span>
-                  </a>
+                  </Link>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             ))}

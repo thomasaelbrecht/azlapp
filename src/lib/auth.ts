@@ -1,19 +1,18 @@
+import { db } from "@/db";
 import { betterAuth } from "better-auth";
-import { MongoClient } from "mongodb";
-import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
-if (!process.env.MONGODB_URI) {
-  throw new Error("MONGODB_URI environment variable is not set");
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL environment variable is not set");
 }
 
-const client = new MongoClient(process.env.MONGODB_URI!);
-const db = client.db();
-
 export const auth = betterAuth({
+  database: drizzleAdapter(db, {
+    provider: "pg",
+  }),
   emailAndPassword: {
     enabled: true,
     disableSignUp: true,
     minPasswordLength: 12,
   },
-  database: mongodbAdapter(db),
 });

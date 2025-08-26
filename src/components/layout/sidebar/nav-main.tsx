@@ -1,93 +1,22 @@
 "use client";
 
-import { ChevronRight, HomeIcon, MailIcon, PiggyBankIcon, ShieldIcon, Users2Icon, WavesLadderIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { navMainItems } from "./nav-main-items";
+import { usePathname } from "next/navigation";
+import { navBibleItems } from "./nav-bible-items";
 
-interface SidebarItem {
+export interface SidebarItem {
   title: string;
   url: string;
   icon?: ReactNode;
   isActive?: boolean;
-  items?: { title: string; url: string }[];
+  items?: SidebarItem[];
 }
-
-const navMainItems: SidebarItem[] = [
-  {
-    title: "Home",
-    url: "/home",
-    icon: <HomeIcon className="size-4 shrink-0" />,
-    isActive: true,
-  },
-  {
-    title: "Groepen",
-    url: "/groups",
-    icon: <WavesLadderIcon className="size-4 shrink-0" />,
-  },
-  {
-    title: "Prestaties",
-    url: "/jobs",
-    icon: <PiggyBankIcon className="size-4 shrink-0" />,
-  },
-  {
-    title: "Gebruikers",
-    url: "/users",
-    icon: <Users2Icon className="size-4 shrink-0" />,
-  },
-  {
-    title: "Mail",
-    url: "/mail",
-    icon: <MailIcon className="size-4 shrink-0" />,
-    items: [
-      {
-        title: "Mail verzenden",
-        url: "/mail/send",
-      },
-      {
-        title: "Verzonden mails",
-        url: "/mail/sent",
-      },
-      {
-        title: "Templates",
-        url: "/mail/templates",
-      },
-    ],
-  },
-  {
-    title: "Admin",
-    icon: <ShieldIcon className="size-4 shrink-0" />,
-    url: "#",
-    items: [
-      {
-        title: "Leden",
-        url: "/admin/members",
-      },
-      {
-        title: "Diploma's",
-        url: "/admin/diplomas",
-      },
-      {
-        title: "Meldingen aanwezigheden",
-        url: "/admin/attendance-notifications",
-      },
-      {
-        title: "Testmoment",
-        url: "/admin/testmoment",
-      },
-      {
-        title: "Betalingen",
-        url: "/paymaster/payments",
-      },
-      {
-        title: "Instellingen",
-        url: "/admin/settings",
-      },
-    ],
-  },
-];
 
 function NavMenuItem({ item }: { item: SidebarItem }) {
   if (!item.items || item.items.length === 0) {
@@ -132,9 +61,26 @@ function NavMenuItem({ item }: { item: SidebarItem }) {
 }
 
 export function NavMain() {
+  const pathname = usePathname();
+
+  const isBiblePath = pathname.startsWith("/bible");
+
+  const items = isBiblePath ? navBibleItems : navMainItems;
+
   return (
     <SidebarMenu>
-      {navMainItems.map((item) => (
+      {isBiblePath && (
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild tooltip="Back">
+            <Link href="/">
+              <ChevronRight className="rotate-180" />
+              <span>Terug</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      )}
+
+      {items.map((item) => (
         <NavMenuItem key={item.url} item={item} />
       ))}
     </SidebarMenu>

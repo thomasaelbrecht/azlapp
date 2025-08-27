@@ -23,6 +23,7 @@ export const navMainItems: SidebarItem[] = [
     url: "/users",
     icon: <Users2Icon className="size-4 shrink-0" />,
   },
+  { title: "Bible", url: "/bible", icon: <BookOpenIcon className="size-4 shrink-0" /> },
   {
     title: "Mail",
     url: "/mail",
@@ -42,11 +43,9 @@ export const navMainItems: SidebarItem[] = [
       },
     ],
   },
-  { title: "Bible", url: "/bible", icon: <BookOpenIcon className="size-4 shrink-0" /> },
   {
     title: "Admin",
     icon: <ShieldIcon className="size-4 shrink-0" />,
-    url: "#",
     items: [
       {
         title: "Leden",

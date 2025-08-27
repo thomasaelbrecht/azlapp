@@ -12,7 +12,7 @@ import { navBibleItems } from "./nav-bible-items";
 
 export interface SidebarItem {
   title: string;
-  url: string;
+  url?: string;
   icon?: ReactNode;
   isActive?: boolean;
   items?: SidebarItem[];
@@ -23,17 +23,24 @@ function NavMenuItem({ item }: { item: SidebarItem }) {
     return (
       <SidebarMenuItem>
         <SidebarMenuButton asChild tooltip={item.title}>
-          <Link href={item.url}>
-            {item.icon}
-            <span>{item.title}</span>
-          </Link>
+          {item.url ? (
+            <Link href={item.url}>
+              {item.icon}
+              <span>{item.title}</span>
+            </Link>
+          ) : (
+            <>
+              {item.icon}
+              <span>{item.title}</span>
+            </>
+          )}
         </SidebarMenuButton>
       </SidebarMenuItem>
     );
   }
 
   return (
-    <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
+    <Collapsible asChild defaultOpen={item.isActive} className="group/collapsible">
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
@@ -45,11 +52,19 @@ function NavMenuItem({ item }: { item: SidebarItem }) {
         <CollapsibleContent>
           <SidebarMenuSub>
             {item.items?.map((subItem) => (
-              <SidebarMenuSubItem key={subItem.title}>
+              <SidebarMenuSubItem key={subItem.url}>
                 <SidebarMenuSubButton asChild>
-                  <Link href={subItem.url}>
-                    <span>{subItem.title}</span>
-                  </Link>
+                  {subItem.url ? (
+                    <Link href={subItem.url}>
+                      {subItem.icon}
+                      <span>{subItem.title}</span>
+                    </Link>
+                  ) : (
+                    <>
+                      {subItem.icon}
+                      <span>{subItem.title}</span>
+                    </>
+                  )}
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             ))}
@@ -64,7 +79,6 @@ export function NavMain() {
   const pathname = usePathname();
 
   const isBiblePath = pathname.startsWith("/bible");
-
   const items = isBiblePath ? navBibleItems : navMainItems;
 
   return (

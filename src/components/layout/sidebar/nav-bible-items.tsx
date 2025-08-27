@@ -4,7 +4,6 @@ export const navBibleItems: SidebarItem[] = [
   { title: "Bible", url: "/bible" },
   {
     title: "Over",
-    url: "#",
     items: [
       {
         title: "VZW",
@@ -30,7 +29,6 @@ export const navBibleItems: SidebarItem[] = [
   },
   {
     title: "Vademecum trainers",
-    url: "#",
     items: [
       {
         title: "Inleiding",
@@ -84,7 +82,6 @@ export const navBibleItems: SidebarItem[] = [
   },
   {
     title: "Voorzitter",
-    url: "#",
     items: [
       {
         title: "Vragen via website",

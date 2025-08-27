@@ -58,7 +58,7 @@ gemaakte zakjes.
 
 Een overzicht van alle taken (met de invullingen van 12/11/2022) is te hier te vinden:
 
-> [Template taakverdeling Sint](files/Taakverdeling_Sint.docx ':ignore')
+> [Template taakverdeling Sint](/bible/Taakverdeling_Sint.docx ':ignore')
 
 Inpakken vanaf 15u, inpakken duurt maar een 50min tot 1u.
 Sint en Piet laten komen vanaf 16u20, omkleden duurt niet lang -schminken duurt het langst.

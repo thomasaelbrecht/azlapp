@@ -52,7 +52,7 @@ function NavMenuItem({ item }: { item: SidebarItem }) {
         <CollapsibleContent>
           <SidebarMenuSub>
             {item.items?.map((subItem) => (
-              <SidebarMenuSubItem key={subItem.url}>
+              <SidebarMenuSubItem key={subItem.url || subItem.title}>
                 <SidebarMenuSubButton asChild>
                   {subItem.url ? (
                     <Link href={subItem.url}>
@@ -95,7 +95,7 @@ export function NavMain() {
       )}
 
       {items.map((item) => (
-        <NavMenuItem key={item.url} item={item} />
+        <NavMenuItem key={item.url || item.title} item={item} />
       ))}
     </SidebarMenu>
   );

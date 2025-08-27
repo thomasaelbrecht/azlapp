@@ -2,8 +2,8 @@
 
 ## Nuttige documenten
 
-- [Draaiboek (Sport Vlaanderen)](files/usr/Draaiboek%20USR.pdf ':ignore'): heel wat nuttige informatie over het opvragen van een uitreksel uit het strafregister.
-- [Stappenplan (VSF)](files/usr/Stappenplan%20USR.pdf ':ignore'): een stappenplan om te bepalen of je een uitreksel uit het strafregister moet aanvragen en wat je er dan mee moet doen.
+- [Draaiboek (Sport Vlaanderen)](/bible/usr/Draaiboek%20USR.pdf ':ignore'): heel wat nuttige informatie over het opvragen van een uitreksel uit het strafregister.
+- [Stappenplan (VSF)](/bible/usr/Stappenplan%20USR.pdf ':ignore'): een stappenplan om te bepalen of je een uitreksel uit het strafregister moet aanvragen en wat je er dan mee moet doen.
 
 ## Stappenplan
 

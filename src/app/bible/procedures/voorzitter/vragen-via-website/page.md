@@ -10,7 +10,7 @@ Beste
 
 Wat fijn dat je hiervoor aan ons denkt!
 
-Om bij ons in te stappen, moet je naar een testmoment komen. Meer informatie hierover vind je op <https://aquariuslebbeke.be/2024/12/17/testmoment/>. Op zo’n testmoment wordt je zoon/dochter georiënteerd in de juiste groep binnen AZL. Ons volgende testmoment is op 30 augustus 2025 om 17u, je kan hiervoor reeds inschrijven via de website: <https://aquariuslebbeke.be/lid-worden/>.
+Om bij ons in te stappen, moet je naar een testmoment komen. Meer informatie hierover vind je op <https://aquariuslebbeke.be/2024/12/17/testmoment/>. Op zo’n testmoment wordt je zoon/dochter georiënteerd in de juiste groep binnen AZL. Ons volgende testmoment is op 3 januari 2026 om 17u, je kan hiervoor reeds inschrijven via de website: <https://aquariuslebbeke.be/lid-worden/>.
 
 Mocht je nog vragen hebben, aarzel niet om te mailen!
 

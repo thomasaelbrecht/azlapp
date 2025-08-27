@@ -135,16 +135,19 @@
     @apply font-bold;
   }
   h1 {
-    @apply text-2xl;
+    @apply text-2xl mb-6;
   }
   h2 {
-    @apply text-xl;
+    @apply text-xl mt-4 mb-1;
   }
   h3 {
     @apply text-lg;
   }
   h4 {
     @apply text-base;
+  }
+  a:not(div[data-slot="sidebar-container"] a) {
+    @apply text-primary underline;
   }
 }
 

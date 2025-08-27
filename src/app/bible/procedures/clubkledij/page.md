@@ -9,8 +9,8 @@ Alvorens een bestelling geplaatst kan worden, dient een uitnodiging gestuurd te 
 > **Opgelet:** dit stappenplan moet aangepast worden na de eerste testfase met de webshop. De procedure kan dus nog wijzigen.
 
 1. Verzamel alle antwoorden van het Google Formulier via de Excel op Google Drive
-2. Vul het [template voor de bestelling](files/Bestelling_clubkledij_template.xlsx ':ignore') in
-   - Je kan per lid een overzicht bijhouden zoals in [dit voorbeeld](files/Clubkledij_overzicht_per_persoon.xlsx ':ignore')
+2. Vul het [template voor de bestelling](/bible/Bestelling_clubkledij_template.xlsx ':ignore') in
+   - Je kan per lid een overzicht bijhouden zoals in [dit voorbeeld](/bible/Clubkledij_overzicht_per_persoon.xlsx ':ignore')
 3. Mail het ingevulde template naar [info@comarsport.be](mailto:info@comarsport.be)
 4. Verwijder de antwoorden uit het Google Formulier
 5. Mail elke besteller zijn/haar verschuldigd bedrag door (wacht hiervoor op de factuur van Comar Sport, zo kunnen de bedragen gecontroleerd worden)

@@ -4,7 +4,7 @@ Hieronder vind je een aantal aandachtspunten waarvan we verwachten dat elke lesg
 
 ## Aandachtspunten lesvoorbereidingen
 
-- Besteed voldoende aandacht aan een degelijke lesvoorbereiding. Gebruik hiervoor de structuur van het [lesvoorbereidingsformulier van de VTS](files/Lesfiche_leeg.docx ':ignore').
+- Besteed voldoende aandacht aan een degelijke lesvoorbereiding. Gebruik hiervoor de structuur van het [lesvoorbereidingsformulier van de VTS](/bible/Lesfiche_leeg.docx ':ignore').
 - Stuur je lesvoorbereidingen tijdig door, uiterlijk de dag voordien. Vergeet niet om deze ook naar eventuele vervangers te sturen.
 - Print de lesvoorbereiding af, lamineer deze en neem ze mee naar het zwembad.
 - Houd je aan de voorbereiding en differentieer indien nodig. Je moet vooraf weten wat je gaat doen. Als je bij het begin van de les nog moet overleggen over de voorbereiding, is deze niet duidelijk genoeg.
@@ -25,17 +25,17 @@ Hieronder vind je een aantal aandachtspunten waarvan we verwachten dat elke lesg
 - Benadruk een goede afstoot van de muur en een correcte uitvoering van de oefening.
 - Start van de muur op de buik
 
-![Start van de muur op de buik](../files/azl_academy/Afstoten_buik.mp4 ':include :type=video controls muted loop width=50%')
+![Start van de muur op de buik](/bible/azl_academy/Afstoten_buik.mp4 ':include :type=video controls muted loop width=50%')
 
 - Start van de muur op de rug
 
-![Start van de muur op de rug](../files/azl_academy/Afstoten_rug.mp4 ':include :type=video controls muted loop width=50%')
+![Start van de muur op de rug](/bible/azl_academy/Afstoten_rug.mp4 ':include :type=video controls muted loop width=50%')
 
 - Geef bij elke oefening een demo (of laat een zwemmer de demo doen).
 - Ga mee in het water in het grote bad, zeker bij jonge groepen.
 - Beperk het praten met collega’s of redders tot het noodzakelijke, zodat het niet ten koste gaat van de les.
 - Ruim je materiaal op! Laat geen rommel achter in de kast van de zwemvliezen of de materiaalruimte.
-  - Zie ook de [beurtrol voor het opruimen](./trainers/materiaal.md#beurtrol-opruimen-materiaal).
+  - Zie ook de [beurtrol voor het opruimen](/bible/trainers/materiaal#beurtrol-opruimen-materiaal).
 - Regel vervangingen tijdig, bij voorkeur twee weken op voorhand.
 - Houd toezicht op de zwemmers, ook als ze niet aan het zwemmen zijn. Blijf na de les/training nog even bij de kleedkamers/douches om te zien of iedereen rustig aan het omkleden is.
 - Begin de les op tijd. Indien de vorige groep nog bezig is, doe eventueel een opwarming op het droge.

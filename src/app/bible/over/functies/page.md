@@ -15,7 +15,7 @@ Binnen AZL zijn nog een paar andere functies toegekend aan bepaalde (toegetreden
 
 ## Overige
 
-- Club API: [Thomas Aelbrecht](mailto:thomasaelbrecht@live.com)
+- Club API: [Stéphanie Van Biesen](mailto:clubapi@aquariuslebbeke.be)
 - Noodteam Club API:
   - [Jalien Van Wesemael](mailto:jalien.vw@hotmail.com)
   - [Karla Van de Voorde](mailto:karlavandevoorde@hotmail.com)

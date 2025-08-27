@@ -2,13 +2,6 @@
 
 In het onderstaande organigram zijn stippelijnen eerder uitzonderlijke overgangen tussen groepen, de volle lijnen zijn de gewoonlijke overgangen.
 
-Elke afdeling heeft ook zijn eigen kleur:
-
-- <span style="background-color: #f6e58d;">Zwemschool</span>
-- <span style="background-color: #ffbe76;">Jeugd</span>
-- <span style="background-color: #ff7979;">Competitie</span>
-- <span style="background-color: #badc58;">Volwassenen</span>
-
 ```mermaid
 flowchart TD
     %% kleuren: https://flatuicolors.com/palette/au
@@ -22,11 +15,16 @@ flowchart TD
     C[Zeehondjes]
     D[Dolfijnen]
     E[Toekomst]
-    class A,B,C,D,E zwemschool
+    M[Oriëntatiegroep]
+    class A,B,C,D,E,M zwemschool
 
     A --> B
     B --> C
     C --> D
+
+    M -.-> B
+    M -.-> C
+    M -.-> D
 
     F[Sharks]
     G["Speedy's"]

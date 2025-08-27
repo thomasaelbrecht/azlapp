@@ -50,7 +50,7 @@
 
 Een overzicht van alle taken (met de invullingen van 06/11/2021) is te hier te vinden:
 
-> [Template taakverdeling Paco](files/Taakverdeling_Paco.docx ':ignore')
+> [Template taakverdeling Paco](/bible/Taakverdeling_Paco.docx ':ignore')
 
 ## Template aanvraag Sportdienst
 

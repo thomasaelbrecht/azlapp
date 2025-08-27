@@ -3,7 +3,7 @@
 Jaarlijks organiseert AZL een koekjesverkoop (of iets dergelijks). De organisatie is vrij eenvoudig:
 
 1. Zoek een product om te verkopen (bv. Lotus-koekjes, Mansens taarten...)
-2. Maak een formulier om uit te delen onder de leden (zie [het voorbeeld uit 2022](files/Formulier_koekjesverkoop.docx ':ignore'))
+2. Maak een formulier om uit te delen onder de leden (zie [het voorbeeld uit 2022](/bible/Formulier_koekjesverkoop.docx ':ignore'))
 3. Verspreid dit formulier online en offline
    - Aantal offline 2022: 300 formulieren werden gedrukt waarvan er 74 overbleven
    - Stuur mails naar de leden via Assist (zie templates onderaan)

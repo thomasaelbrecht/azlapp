@@ -51,11 +51,11 @@
 
 ### Formulier
 
-> [Template formulier testmoment](files/Formulier_testmoment.docx ':ignore')
+> [Template formulier testmoment](/bible/Formulier_testmoment.docx ':ignore')
 
 ### Taakverdeling
 
-> [Template taakverdeling testmoment](files/Taakverdeling_testmoment.docx ':ignore')
+> [Template taakverdeling testmoment](/bible/Taakverdeling_testmoment.docx ':ignore')
 
 ## Aandachtspunten
 

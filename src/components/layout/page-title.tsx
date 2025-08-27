@@ -10,7 +10,7 @@ export function PageTitle({ children }: PageTitleProps) {
   const { isMobile } = useSidebar();
 
   return (
-    <header className="flex flex-row items-center gap-2 mb-4">
+    <header className="flex flex-row items-center gap-2">
       {isMobile && <SidebarTrigger />}
       <div className="flex flex-col gap-1">
         <h1>{children}</h1>

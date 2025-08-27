@@ -14,8 +14,9 @@ De Algemene Vergadering is samengesteld uit alle (effectieve) leden van AZL. Toe
 - Christophe Pauwels
 - Alex Van Den Bremt
 - Annie Bijloos
-- Isabelle Dewit
+- Dries Meskens
 - Guy Claeys
+- Luc Rasschaert
 
 De Algemene Vergadering is uitsluitend bevoegd voor:
 
@@ -40,5 +41,5 @@ De Raad van Bestuur bestaat uit volgende personen:
 - Christophe Pauwels ([Penningmeester](mailto:penningmeester@aquariuslebbeke.be))
 - Alex Van Den Bremt ([Sportsecretaris](mailto:sportsecretaris@aquariuslebbeke.be))
 - Annie Bijloos ([Hoofdtrainster](mailto:annie.bijloos@skynet.be))
-- Isabelle Dewit ([Ledenbeheer](mailto:ledenbeheer@aquariuslebbeke.be))
-- [Guy Claeys](mailto:info@veconsult.be)
+- Erna Borms
+- Luc Rasschaert

@@ -30,7 +30,7 @@ Tijdens het doorlopen van de AZL Academy mag je uiteraard reeds vervangingen doe
 
 ### Slides en documenten
 
-- [Lesvoorbereidingsformulier VTS](files/Lesfiche_leeg.docx ':ignore').
+- [Lesvoorbereidingsformulier VTS](/bible/Lesfiche_leeg.docx ':ignore').
 - Sessie 1 - Algemene intro: wordt later toegevoegd
 - Sessie 2 - Nieuwe leerlijn: wordt later toegevoegd
 - Sessie 3 - Tips & tricks

@@ -14,6 +14,15 @@ const envSchema = z.object({
   // Databases
   // ========================================
   POSTGRES_URL: z.url({ message: "POSTGRES_URL must be a valid URL" }),
+
+  // ========================================
+  // Assist API
+  // ========================================
+  ASSIST_API_BASE_URL: z
+    .url({ message: "ASSIST_API_BASE_URL must be a valid URL" })
+    .optional()
+    .default("https://app.assistonline.eu/api"),
+  ASSIST_API_KEY: z.string().min(1, { message: "ASSIST_API_KEY cannot be empty" }),
 });
 
 // Lazy validation: only parse env vars when actually accessed, not at build time

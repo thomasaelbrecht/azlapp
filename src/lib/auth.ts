@@ -1,34 +1,55 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import * as schema from "@/db/schema";
+import { admin } from "better-auth/plugins";
 import { db } from "@/lib/db";
+import { Role } from "@/types/auth";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
-    schema,
   }),
+  advanced: {
+    database: {
+      generateId: () => crypto.randomUUID(),
+    },
+  },
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: false,
+    disableSignUp: true,
+    minPasswordLength: 12,
   },
   user: {
     additionalFields: {
-      firstName: {
+      phone: {
         type: "string",
         required: false,
       },
-      lastName: {
+      accountNumber: {
         type: "string",
         required: false,
+      },
+      ssn: {
+        type: "string",
+        required: false,
+      },
+      diplomaId: {
+        type: "string",
+        required: false,
+        references: {
+          model: "diplomas",
+          field: "id",
+          onDelete: "restrict",
+        },
       },
     },
   },
-  advanced: {
-    generateId: () => crypto.randomUUID(),
-  },
-  plugins: [nextCookies()],
+  plugins: [
+    admin({
+      defaultRole: Role.TEACHER,
+    }),
+    nextCookies(),
+  ],
 });
 
 export type Session = typeof auth.$Infer.Session;

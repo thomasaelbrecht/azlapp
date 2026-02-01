@@ -1,14 +1,16 @@
-import { jsonb, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
+import { integer, jsonb, pgTable, uuid } from "drizzle-orm/pg-core";
 
-export const settings = pgTable("settings", {
+export const jobTotalSettings = pgTable("job_total_settings", {
   id: uuid("id").primaryKey().defaultRandom(),
-  jobTotalPrecision: jsonb("job_total_precision").notNull(),
-  jobTotalExtraCoordinator: jsonb("job_total_extra_coordinator").notNull(),
-  jobTotalExtraLifeguard: jsonb("job_total_extra_lifeguard").notNull(),
-  jobTotalDefaultAmountPerHour: jsonb("job_total_default_amount_per_hour").notNull(),
-  jobTotalAmountPerContest: jsonb("job_total_amount_per_contest").notNull(),
-  jobTotalAmountPerLifeguardTask: jsonb("job_total_amount_per_lifeguard_task").notNull(),
-  jobTotalAssociationWorkTax: jsonb("job_total_association_work_tax").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  precision: jsonb("job_total_precision").notNull(),
+  extraCoordinator: jsonb("job_total_extra_coordinator").notNull(),
+  extraLifeguard: jsonb("job_total_extra_lifeguard").notNull(),
+  defaultAmountPerHour: jsonb("job_total_default_amount_per_hour").notNull(),
+  amountPerContest: jsonb("job_total_amount_per_contest").notNull(),
+  amountPerLifeguardTask: jsonb("job_total_amount_per_lifeguard_task").notNull(),
+  associationWorkTax: jsonb("job_total_association_work_tax").notNull(),
+});
+
+export const assistSettings = pgTable("assist_settings", {
+  currentWorkingYearId: integer("assist_current_working_year_id").notNull(),
 });

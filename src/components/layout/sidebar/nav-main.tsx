@@ -88,7 +88,7 @@ export function NavMain() {
   const items = isBiblePath ? navBibleItems : navMainItems;
 
   return (
-    <SidebarMenu className="mt-2">
+    <SidebarMenu className="p-2">
       {isBiblePath && (
         <SidebarMenuItem>
           <SidebarMenuButton asChild tooltip="Back">

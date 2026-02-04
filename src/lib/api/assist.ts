@@ -39,6 +39,13 @@ export class AssistApi {
       }
     }
 
+    if (!this.isSignedIn() && endpoint !== "/user/signin") {
+      await this.signIn({
+        Username: env.ASSIST_USERNAME,
+        Password: env.ASSIST_PASSWORD,
+      });
+    }
+
     const headers = {
       ...this.getHeaders(),
       ...options?.headers,
@@ -93,6 +100,10 @@ export class AssistApi {
 
       throw new AssistApiError("Unknown error occurred");
     }
+  }
+
+  private isSignedIn(): boolean {
+    return this.jwtToken !== null;
   }
 
   async signIn(credentials: SignInRequest): Promise<void> {

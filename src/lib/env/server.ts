@@ -23,6 +23,10 @@ const envSchema = z.object({
     .optional()
     .default("https://app.assistonline.eu/api"),
   ASSIST_API_KEY: z.string().min(1, { message: "ASSIST_API_KEY cannot be empty" }),
+  ASSIST_USERNAME: z
+    .email({ error: "ASSIST_USERNAME should be a valid email" })
+    .min(1, { message: "ASSIST_USERNAME cannot be empty" }),
+  ASSIST_PASSWORD: z.string().min(1, { message: "ASSIST_PASSWORD cannot be empty" }),
 });
 
 // Lazy validation: only parse env vars when actually accessed, not at build time

@@ -13,7 +13,8 @@
       "!.next",
       "!dist",
       "!build",
-      "!migrations"
+      "!migrations",
+      "!src/components/ui"
     ]
   },
   "formatter": {

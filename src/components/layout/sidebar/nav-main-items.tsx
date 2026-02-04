@@ -62,6 +62,10 @@ export const navMainItems: SidebarItem[] = [
     icon: <ShieldIcon className="size-4 shrink-0" />,
     items: [
       {
+        title: "Assist",
+        url: "/admin/assist",
+      },
+      {
         title: "Diploma's",
         url: "/admin/diplomas",
       },

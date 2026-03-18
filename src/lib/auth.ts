@@ -1,9 +1,9 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import { admin } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins";
 import { db } from "@/lib/db";
-import { Role } from "@/types/auth";
+import { Role } from "@/types/permissions";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -45,11 +45,9 @@ export const auth = betterAuth({
     },
   },
   plugins: [
-    admin({
-      defaultRole: Role.TEACHER,
+    adminPlugin({
+      defaultRole: Role.TRAINER,
     }),
     nextCookies(),
   ],
 });
-
-export type Session = typeof auth.$Infer.Session;

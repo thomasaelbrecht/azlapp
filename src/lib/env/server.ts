@@ -1,5 +1,3 @@
-import "server-only";
-
 import { logger } from "better-auth";
 import z from "zod";
 

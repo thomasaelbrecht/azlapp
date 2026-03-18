@@ -36,11 +36,6 @@ export const auth = betterAuth({
       diplomaId: {
         type: "string",
         required: false,
-        references: {
-          model: "diplomas",
-          field: "id",
-          onDelete: "restrict",
-        },
       },
     },
   },

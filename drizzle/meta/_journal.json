@@ -15,6 +15,13 @@
       "when": 1769973464507,
       "tag": "0001_strong_argent",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773847418807,
+      "tag": "0002_skinny_rick_jones",
+      "breakpoints": true
     }
   ]
 }

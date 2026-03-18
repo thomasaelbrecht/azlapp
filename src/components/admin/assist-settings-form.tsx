@@ -39,9 +39,9 @@ export function AssistSettingsForm({ initialSettings, workingYears }: AssistSett
     const result = await updateAssistSettings(data.currentWorkingYearId);
 
     if (result.success) {
-      toast.success("Settings updated successfully");
+      toast.success("Instellingen succesvol bijgewerkt");
     } else {
-      toast.error(result.error || "Failed to update settings");
+      toast.error(result.error || "Fout bij het bijwerken van instellingen");
     }
   };
 
@@ -51,13 +51,13 @@ export function AssistSettingsForm({ initialSettings, workingYears }: AssistSett
     try {
       const result = await triggerMemberSync();
       if (result.success) {
-        toast.success(result.message || "Member sync triggered successfully");
+        toast.success("Ledensynchronisatie succesvol getriggerd");
       } else {
-        toast.error("Failed to trigger member sync");
+        toast.error("Ledensynchronisatie mislukt");
       }
     } catch (err) {
-      toast.error("Failed to trigger member sync");
-      console.error("Sync error:", err);
+      toast.error("Ledensynchronisatie mislukt");
+      console.error("Member sync error:", err);
     } finally {
       setSyncingMembers(false);
     }

@@ -155,6 +155,7 @@ export class AssistApi {
           homePhone: member.Person.HomePhone,
           birthDate: member.Person.BirthDate ? new Date(member.Person.BirthDate) : null,
           deathDate: member.Person.DeathDate ? new Date(member.Person.DeathDate) : null,
+          genderId: member.Person.GenderId,
           homeAddress: member.Person.HomeAddress
             ? {
                 id: member.Person.HomeAddress.Id,

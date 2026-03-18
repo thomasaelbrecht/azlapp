@@ -151,6 +151,7 @@ export interface Member {
     homePhone: string | null;
     birthDate: Date | null;
     deathDate: Date | null;
+    genderId: number | null;
     homeAddress: {
       id: number;
       street: string;

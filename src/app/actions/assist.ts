@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { assistSettings } from "@/db/schema/settings";
 import { db } from "@/lib/db";
+import { syncMembers } from "@/services/assist";
 
 export async function updateAssistSettings(currentWorkingYearId: number) {
   try {
@@ -24,13 +25,26 @@ export async function updateAssistSettings(currentWorkingYearId: number) {
     revalidatePath("/admin/assist");
     return { success: true };
   } catch (error) {
-    console.error("Failed to update Assist settings:", error);
-    return { success: false, error: "Failed to update settings" };
+    console.error("Fout bij het bijwerken van Assist instellingen:", error);
+    return { success: false, error: "Kon instellingen niet bijwerken" };
   }
 }
 
 export async function triggerMemberSync() {
-  // Placeholder for future implementation
-  console.info("Member sync triggered - not implemented yet");
-  return { success: true, message: "Sync triggered successfully (placeholder)" };
+  try {
+    const result = await syncMembers();
+    revalidatePath("/admin/assist");
+
+    return {
+      success: true,
+      message: `${result.total} leden succesvol gesynchroniseerd (${result.created} aangemaakt, ${result.updated} bijgewerkt, ${result.deleted} verwijderd)`,
+      data: result,
+    };
+  } catch (error) {
+    console.error("Fout bij het synchroniseren van leden:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Kon leden niet synchroniseren",
+    };
+  }
 }

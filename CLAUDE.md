@@ -25,3 +25,5 @@ Next.js app with Better Auth authentication and Drizzle ORM.
 - Use Drizzle ORM for all database interactions
 - Keep components focused and reusable
 - Use Tailwind for styling, avoid custom CSS when possible
+- Do not test the build, only fix linting issues.
+- If you notice changes since your last edit, leave them as they are, do not revert them.

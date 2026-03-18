@@ -14,6 +14,9 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+import { TrainingDay } from "@/types/groups";
+import { Gender } from "@/types/members";
+import { enumToPgEnum } from "@/utils/enums";
 
 export const groups = pgTable(
   "groups",
@@ -31,7 +34,7 @@ export const groups = pgTable(
   table => [index("group_name_idx").on(table.name)],
 );
 
-export const genderEnum = pgEnum("gender_enum", ["M", "F", "X"]);
+export const genderEnum = pgEnum("gender_enum", enumToPgEnum(Gender));
 
 export const members = pgTable(
   "members",
@@ -41,12 +44,13 @@ export const members = pgTable(
     lastName: varchar("last_name", { length: 255 }).notNull(),
     birthDate: date("birth_date").notNull(),
     emails: jsonb("emails").notNull(),
-    gender: genderEnum().notNull(),
+    gender: genderEnum().notNull().$type<Gender>(),
     phones: jsonb("phones").notNull(),
     remarks: text("remarks"),
     assistPersonId: integer("assist_person_id").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
+    deletedAt: timestamp("deleted_at"),
   },
   table => [index("member_name_idx").on(table.firstName, table.lastName)],
 );
@@ -61,15 +65,7 @@ export const goals = pgTable("goals", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-export const trainingDayEnum = pgEnum("training_day_enum", [
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURDAY",
-  "SUNDAY",
-]);
+export const trainingDayEnum = pgEnum("training_day_enum", enumToPgEnum(TrainingDay));
 
 export const trainings = pgTable("trainings", {
   id: uuid("id").primaryKey().defaultRandom(),

@@ -51,7 +51,7 @@ export function AssistSettingsForm({ initialSettings, workingYears }: AssistSett
     try {
       const result = await triggerMemberSync();
       if (result.success) {
-        toast.success("Ledensynchronisatie succesvol getriggerd");
+        toast.success(result.message || "Ledensynchronisatie succesvol voltooid");
       } else {
         toast.error("Ledensynchronisatie mislukt");
       }

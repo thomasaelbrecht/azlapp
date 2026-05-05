@@ -23,6 +23,7 @@ export const groups = pgTable(
   {
     id: uuid("id").primaryKey().defaultRandom(),
     name: varchar("name", { length: 255 }).notNull().unique(),
+    assistTeamId: integer("assist_team_id").unique(),
     extraPerLesson: decimal("extra_per_lesson", {
       precision: 4,
       scale: 2,
@@ -30,6 +31,7 @@ export const groups = pgTable(
     detailedHours: boolean("detailed_hours").default(false),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
+    deletedAt: timestamp("deleted_at"),
   },
   table => [index("group_name_idx").on(table.name)],
 );

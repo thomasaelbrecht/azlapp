@@ -192,6 +192,36 @@ export interface MemberFilterResponse {
   count: number;
 }
 
+export interface MemberTeamResponse {
+  Id: number;
+  FollowNumber: number;
+  Name: string;
+  CannotDeleteMessage: string;
+  HasChildren: boolean;
+  Children: MemberTeamResponse[];
+}
+
+export interface MemberTeamsResponseRaw {
+  Items: MemberTeamResponse[];
+  NextPageLink: string | null;
+  Count: number;
+}
+
+export interface MemberTeam {
+  id: number;
+  followNumber: number;
+  name: string;
+  cannotDeleteMessage: string;
+  hasChildren: boolean;
+  children: MemberTeam[];
+}
+
+export interface MemberTeamsResponse {
+  items: MemberTeam[];
+  nextPageLink: string | null;
+  count: number;
+}
+
 export class AssistApiError extends Error {
   constructor(
     message: string,

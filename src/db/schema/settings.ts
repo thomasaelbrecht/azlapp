@@ -14,4 +14,5 @@ export const jobTotalSettings = pgTable("job_total_settings", {
 export const assistSettings = pgTable("assist_settings", {
   id: uuid("id").primaryKey().defaultRandom(),
   currentWorkingYearId: integer("assist_current_working_year_id").notNull(),
+  syncedTeamIds: jsonb("assist_synced_team_ids").notNull().default("[]").$type<number[]>(),
 });

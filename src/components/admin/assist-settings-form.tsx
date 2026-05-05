@@ -1,18 +1,20 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { triggerMemberSync, updateAssistSettings } from "@/app/actions/assist";
+import { updateAssistSettingsAction } from "@/app/actions/assist";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import type { WorkingYear } from "@/types/api/assist";
+import type { MemberTeam, WorkingYear } from "@/types/api/assist";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Field, FieldDescription, FieldError, FieldLabel } from "../ui/field";
+import { AssistTeamSelection } from "./assist-team-selection";
 
 const assistSettingsSchema = z.object({
   currentWorkingYearId: z.number().int().positive("Please select a working year"),
+  syncedTeamIds: z.array(z.number().int().positive()).optional(),
 });
 
 type AssistSettingsFormData = z.infer<typeof assistSettingsSchema>;
@@ -20,23 +22,24 @@ type AssistSettingsFormData = z.infer<typeof assistSettingsSchema>;
 interface AssistSettingsFormProps {
   initialSettings: {
     currentWorkingYearId: number;
+    syncedTeamIds?: number[];
   } | null;
   workingYears: WorkingYear[];
+  memberTeams: MemberTeam[];
 }
 
-export function AssistSettingsForm({ initialSettings, workingYears }: AssistSettingsFormProps) {
-  const [syncingMembers, setSyncingMembers] = useState(false);
-
+export function AssistSettingsForm({ initialSettings, workingYears, memberTeams }: AssistSettingsFormProps) {
   const form = useForm<AssistSettingsFormData>({
     resolver: zodResolver(assistSettingsSchema),
     reValidateMode: "onChange",
     defaultValues: {
       currentWorkingYearId: initialSettings?.currentWorkingYearId,
+      syncedTeamIds: initialSettings?.syncedTeamIds || [],
     },
   });
 
   const onSubmit = async (data: AssistSettingsFormData) => {
-    const result = await updateAssistSettings(data.currentWorkingYearId);
+    const result = await updateAssistSettingsAction(data);
 
     if (result.success) {
       toast.success("Instellingen succesvol bijgewerkt");
@@ -45,29 +48,23 @@ export function AssistSettingsForm({ initialSettings, workingYears }: AssistSett
     }
   };
 
-  const handleSyncMembers = async () => {
-    setSyncingMembers(true);
+  const handleTeamSelectionChange = async (team: MemberTeam, checked: boolean) => {
+    const prevSelected = form.getValues("syncedTeamIds") || [];
+    // Also include all child teams when a parent team is selected, and remove all child teams when a parent team is deselected
+    const teamIds = [team.id, ...team.children.map(child => child.id)];
 
-    try {
-      const result = await triggerMemberSync();
-      if (result.success) {
-        toast.success(result.message || "Ledensynchronisatie succesvol voltooid");
-      } else {
-        toast.error("Ledensynchronisatie mislukt");
-      }
-    } catch (err) {
-      toast.error("Ledensynchronisatie mislukt");
-      console.error("Member sync error:", err);
-    } finally {
-      setSyncingMembers(false);
-    }
+    form.setValue(
+      "syncedTeamIds",
+      checked ? [...prevSelected, ...teamIds] : prevSelected.filter(id => teamIds.includes(id) === false),
+    );
   };
 
   return (
-    <div className="space-y-6">
-      {/* Settings Form */}
-      <div className="rounded-lg border bg-card p-6">
-        <h2 className="text-xl font-semibold mb-4">Instellingen</h2>
+    <Card>
+      <CardHeader>
+        <CardTitle>Instellingen</CardTitle>
+      </CardHeader>
+      <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <Controller
             name="currentWorkingYearId"
@@ -75,6 +72,10 @@ export function AssistSettingsForm({ initialSettings, workingYears }: AssistSett
             render={({ field, fieldState }) => (
               <Field>
                 <FieldLabel htmlFor="currentWorkingYearId">Huidig werkjaar</FieldLabel>
+                <FieldDescription>
+                  Selecteer het werkjaar dat gebruikt moet worden voor het synchroniseren van leden.
+                </FieldDescription>
+
                 <Select
                   value={field.value?.toString()}
                   onValueChange={value => {
@@ -92,9 +93,26 @@ export function AssistSettingsForm({ initialSettings, workingYears }: AssistSett
                     ))}
                   </SelectContent>
                 </Select>
+                {fieldState.invalid && <FieldError>{fieldState.error?.message}</FieldError>}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="syncedTeamIds"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field>
+                <FieldLabel htmlFor="syncedTeamIds">Gesynchroniseerde teams</FieldLabel>
                 <FieldDescription>
-                  Selecteer het werkjaar dat gebruikt moet worden voor het synchroniseren van leden.
+                  Selecteer welke teams gesynchroniseerd moeten worden. Alleen geselecteerde teams worden geïmporteerd
+                  naar de database.
                 </FieldDescription>
+                <AssistTeamSelection
+                  teams={memberTeams}
+                  selectedTeamIds={field.value}
+                  onTeamSelectionChange={handleTeamSelectionChange}
+                />
                 {fieldState.invalid && <FieldError>{fieldState.error?.message}</FieldError>}
               </Field>
             )}
@@ -104,22 +122,14 @@ export function AssistSettingsForm({ initialSettings, workingYears }: AssistSett
             {form.formState.isSubmitting ? "Bezig met opslaan..." : "Opslaan"}
           </Button>
         </form>
-      </div>
 
-      {/* Sync Members Section */}
-      <div className="rounded-lg border bg-card p-6">
-        <h2 className="mb-4 text-xl font-semibold">Synchronisatie van leden</h2>
-        <p className="mb-4 text-sm text-muted-foreground">
-          Trigger een manuele synchronisatie van alle leden vanuit Assist. Dit zal alle leden uit het geselecteerde
-          werkjaar importeren en bijwerken in de AZL app.
-        </p>
-        <Button onClick={handleSyncMembers} disabled={syncingMembers || !initialSettings} variant="secondary">
-          {syncingMembers ? "Bezig met synchroniseren..." : "Synchroniseer leden"}
+        {/* <Button onClick={handleSyncTeams} disabled={syncingTeams || selectedTeams.length === 0} variant="secondary">
+          {syncingTeams ? "Bezig met synchroniseren..." : "Synchroniseer teams"}
         </Button>
-        {!initialSettings && (
-          <p className="mt-2 text-sm text-destructive">Gelieve eerst een werkjaar in te stellen voor synchronisatie.</p>
-        )}
-      </div>
-    </div>
+        {selectedTeams.length === 0 && (
+          <p className="mt-2 text-sm text-muted-foreground">Selecteer minstens één team om te synchroniseren.</p>
+        )} */}
+      </CardContent>
+    </Card>
   );
 }

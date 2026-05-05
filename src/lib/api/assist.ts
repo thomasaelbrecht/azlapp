@@ -4,6 +4,10 @@ import {
   type MemberFilterParams,
   type MemberFilterResponse,
   type MemberFilterResponseRaw,
+  type MemberTeam,
+  type MemberTeamResponse,
+  type MemberTeamsResponse,
+  type MemberTeamsResponseRaw,
   type SignInRequest,
   type WorkingYear,
   type WorkingYearResponse,
@@ -185,6 +189,27 @@ export class AssistApi {
         droppedOut: member.DroppedOut,
         payedAmount: member.PayedAmount,
       })),
+      nextPageLink: response.NextPageLink,
+      count: response.Count,
+    };
+  }
+
+  private mapMemberTeam(team: MemberTeamResponse): MemberTeam {
+    return {
+      id: team.Id,
+      followNumber: team.FollowNumber,
+      name: team.Name,
+      cannotDeleteMessage: team.CannotDeleteMessage,
+      hasChildren: team.HasChildren,
+      children: team.Children.map(child => this.mapMemberTeam(child)),
+    };
+  }
+
+  async getMemberTeams(): Promise<MemberTeamsResponse> {
+    const response = await this.request<MemberTeamsResponseRaw>("GET", "/MemberTeams/top");
+
+    return {
+      items: response.Items.map(team => this.mapMemberTeam(team)),
       nextPageLink: response.NextPageLink,
       count: response.Count,
     };

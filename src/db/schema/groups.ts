@@ -17,6 +17,7 @@ import {
 import { TrainingDay } from "@/types/groups";
 import { Gender } from "@/types/members";
 import { enumToPgEnum } from "@/utils/enums";
+import { users } from "./auth";
 
 export const groups = pgTable(
   "groups",
@@ -45,9 +46,9 @@ export const members = pgTable(
     firstName: varchar("first_name", { length: 255 }).notNull(),
     lastName: varchar("last_name", { length: 255 }).notNull(),
     birthDate: date("birth_date").notNull(),
-    emails: jsonb("emails").notNull(),
+    emails: jsonb("emails").notNull().$type<string[]>(),
     gender: genderEnum().notNull().$type<Gender>(),
-    phones: jsonb("phones").notNull(),
+    phones: jsonb("phones").notNull().$type<string[]>(),
     remarks: text("remarks"),
     assistPersonId: integer("assist_person_id").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
@@ -100,14 +101,29 @@ export const userToTrainings = pgTable(
   table => [index("user_training_idx").on(table.userId, table.trainingId)],
 );
 
+export const membersToGroups = pgTable(
+  "members_to_groups",
+  {
+    memberId: uuid("member_id")
+      .notNull()
+      .references(() => members.id, { onDelete: "restrict" }),
+    groupId: uuid("group_id")
+      .notNull()
+      .references(() => groups.id, { onDelete: "restrict" }),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+  },
+  table => [index("member_group_idx").on(table.memberId, table.groupId)],
+);
+
 export const groupsRelations = relations(groups, ({ many }) => ({
-  members: many(members),
+  membersToGroups: many(membersToGroups),
   goals: many(goals),
   trainings: many(trainings),
 }));
 
 export const membersRelations = relations(members, ({ many }) => ({
-  group: many(groups),
+  membersToGroups: many(membersToGroups),
 }));
 
 export const trainingsRelations = relations(trainings, ({ one, many }) => ({
@@ -116,4 +132,26 @@ export const trainingsRelations = relations(trainings, ({ one, many }) => ({
     references: [groups.id],
   }),
   userToTrainings: many(userToTrainings),
+}));
+
+export const userToTrainingsRelations = relations(userToTrainings, ({ one }) => ({
+  user: one(users, {
+    fields: [userToTrainings.userId],
+    references: [users.id],
+  }),
+  training: one(trainings, {
+    fields: [userToTrainings.trainingId],
+    references: [trainings.id],
+  }),
+}));
+
+export const membersToGroupsRelations = relations(membersToGroups, ({ one }) => ({
+  member: one(members, {
+    fields: [membersToGroups.memberId],
+    references: [members.id],
+  }),
+  group: one(groups, {
+    fields: [membersToGroups.groupId],
+    references: [groups.id],
+  }),
 }));

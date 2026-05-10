@@ -43,6 +43,13 @@
       "when": 1777996133746,
       "tag": "0005_furry_leo",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1778429223561,
+      "tag": "0006_uneven_khan",
+      "breakpoints": true
     }
   ]
 }

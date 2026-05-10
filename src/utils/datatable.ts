@@ -18,7 +18,7 @@ interface SearchFiltersToSQLOptions {
 }
 
 interface SortParamsToSQLOptions {
-  sortQuery?: string;
+  sortQuery?: string | null;
   sortColumnMapping: Record<string, AnyColumn | SQLWrapper>;
   defaultSortColumn: keyof SortParamsToSQLOptions["sortColumnMapping"];
   defaultSortDirection: "ASC" | "DESC";

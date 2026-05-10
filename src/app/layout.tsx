@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Nunito } from "next/font/google";
 import "./globals.css";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "sonner";
 import { AppSidebar } from "@/components/layout/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -29,12 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${nunito.className} ${geistMono.className} antialiased`}>
-        <SidebarProvider>
-          <AppSidebar />
+        <NuqsAdapter>
+          <SidebarProvider>
+            <AppSidebar />
 
-          <SidebarInset>{children}</SidebarInset>
-        </SidebarProvider>
-        <Toaster />
+            <SidebarInset>{children}</SidebarInset>
+          </SidebarProvider>
+          <Toaster />
+        </NuqsAdapter>
       </body>
     </html>
   );

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Nunito } from "next/font/google";
-import "./globals.css";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "sonner";
 import { AppSidebar } from "@/components/layout/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import "./globals.css";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",

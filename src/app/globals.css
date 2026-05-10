@@ -161,10 +161,10 @@
   i {
     @apply italic;
   }
-  a:not(div[data-slot="sidebar-container"] a) {
+  a:not(a[data-slot="sidebar-menu-button"]) {
     @apply text-primary underline decoration-primary/30 underline-offset-2;
   }
-  a:not(div[data-slot="sidebar-container"] a):hover {
+  a:not(a[data-slot="sidebar-menu-button"]):hover {
     @apply decoration-primary;
   }
 }

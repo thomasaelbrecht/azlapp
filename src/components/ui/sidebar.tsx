@@ -2,7 +2,7 @@
 
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
+import { ArrowLeftToLineIcon, ArrowRightToLineIcon, PanelLeftIcon } from "lucide-react";
 import * as React from "react";
 import { setSidebarState } from "@/app/actions/sidebar";
 import { Button } from "@/components/ui/button";
@@ -647,8 +647,27 @@ function SidebarMenuSubButton({
   );
 }
 
+function SidebarCollapseButton() {
+  const { toggleSidebar, state } = useSidebar();
+  const collapsed = state === "collapsed";
+
+  return (
+    <Tooltip>
+      <TooltipTrigger>
+        <Button variant="ghost" size="icon-sm" onClick={toggleSidebar}>
+          {collapsed ? <ArrowRightToLineIcon /> : <ArrowLeftToLineIcon />} 
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        {collapsed ? "Navigatie uitklappen" : "Navigate inklappen"}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 export {
   Sidebar,
+  SidebarCollapseButton,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,

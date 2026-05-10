@@ -165,6 +165,7 @@ export interface Member {
   assignedFunctions: Array<{
     id: number;
     functionName: string;
+    teamId: number;
     teamName: string;
     disabled: boolean;
   }>;

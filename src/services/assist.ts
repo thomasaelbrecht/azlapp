@@ -1,6 +1,6 @@
-import { eq, isNull } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { db, type Transaction } from "@/db";
-import { assistSettings, groups, members } from "@/db/schema";
+import { assistSettings, groups, members, membersToGroups } from "@/db/schema";
 import { AssistApi } from "@/lib/api/assist";
 import type { MemberTeamsResponse, WorkingYear } from "@/types/api/assist";
 import { Gender } from "@/types/members";
@@ -104,7 +104,6 @@ export async function syncMembers(
   const allMembers = (
     await assistApi.filterMembers({
       WorkingYearId: settings.currentWorkingYearId,
-      $count: true,
       IsDroppedOut: false,
     })
   ).items;
@@ -181,9 +180,61 @@ export async function syncMembers(
   };
 }
 
+export async function syncMemberGroups(settings: AssistSettings, tx: Transaction): Promise<{ assigned: number }> {
+  const assistApi = getAssistApiInstance();
+  const allMembers = (
+    await assistApi.filterMembers({
+      WorkingYearId: settings.currentWorkingYearId,
+      IsDroppedOut: false,
+    })
+  ).items;
+
+  const syncedTeamIds = settings.syncedTeamIds as number[];
+
+  const allGroups = await tx.query.groups.findMany({
+    where: isNull(groups.deletedAt),
+  });
+  const groupByAssistTeamId = new Map(
+    allGroups.filter(g => g.assistTeamId !== null).map(g => [g.assistTeamId as number, g.id]),
+  );
+
+  let assigned = 0;
+
+  for (const member of allMembers) {
+    const dbMember = await tx.query.members.findFirst({
+      where: and(eq(members.assistPersonId, member.person.id), isNull(members.deletedAt)),
+    });
+
+    if (!dbMember) continue;
+
+    const memberTeamIds = member.assignedFunctions
+      .filter(f => !f.disabled && syncedTeamIds.includes(f.teamId))
+      .map(f => f.teamId);
+
+    const uniqueTeamIds = [...new Set(memberTeamIds)];
+
+    for (const teamId of uniqueTeamIds) {
+      const groupId = groupByAssistTeamId.get(teamId);
+      if (!groupId) continue;
+
+      const existing = await tx.query.membersToGroups.findFirst({
+        where: and(eq(membersToGroups.memberId, dbMember.id), eq(membersToGroups.groupId, groupId)),
+      });
+
+      if (!existing) {
+        await tx.insert(membersToGroups).values({ memberId: dbMember.id, groupId });
+        assigned++;
+      }
+    }
+  }
+
+  return { assigned };
+}
+
 export async function performAssistSync(): Promise<{
   teamSync: { total: number; created: number; updated: number };
   memberSync: { total: number; created: number; updated: number; deleted: number };
+  memberGroupSync: { assigned: number };
 }> {
   const settings = await db.query.assistSettings.findFirst();
   if (!settings?.currentWorkingYearId) {
@@ -193,10 +244,12 @@ export async function performAssistSync(): Promise<{
   return await db.transaction(async tx => {
     const teamSyncResult = await syncTeams(settings, tx);
     const memberSyncResult = await syncMembers(settings, tx);
+    const memberGroupSyncResult = await syncMemberGroups(settings, tx);
 
     return {
       teamSync: teamSyncResult,
       memberSync: memberSyncResult,
+      memberGroupSync: memberGroupSyncResult,
     };
   });
 }

@@ -175,6 +175,7 @@ export class AssistApi {
         assignedFunctions: member.AssignedFunctions.map(func => ({
           id: func.Id,
           functionName: func.Function.Name,
+          teamId: func.TeamId,
           teamName: func.Team.Name,
           disabled: func.Disabled,
         })),

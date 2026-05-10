@@ -7,16 +7,6 @@ interface PaginationParamsToSQLOptions {
   defaultPageSize?: number;
 }
 
-interface SearchFiltersToSQLOptions {
-  /**
-   * An object that maps a query parameter to function. The function should return the SQL filter.
-   */
-  filterMap: Record<string, (value: string) => SQL | undefined>;
-
-  // biome-ignore lint/suspicious/noExplicitAny: We will allow any type for filter values
-  filters?: Record<string, any>;
-}
-
 interface SortParamsToSQLOptions {
   sortQuery?: string | null;
   sortColumnMapping: Record<string, AnyColumn | SQLWrapper>;
@@ -37,23 +27,6 @@ export function paginationParamsToSQL({
     limit: validPageSize,
     offset: (validPage - 1) * validPageSize,
   };
-}
-
-export function searchFiltersToSQL({ filters, filterMap }: SearchFiltersToSQLOptions): (SQL | undefined)[] {
-  if (!filters) return [];
-
-  return Object.keys(filters)
-    .reduce(
-      (queryFilters, key) => {
-        const value = filters[key];
-        if (value && filterMap[key]) {
-          queryFilters.push(filterMap[key](value));
-        }
-        return queryFilters;
-      },
-      [] as (SQL | undefined)[],
-    )
-    .filter(Boolean);
 }
 
 export function sortParamsToSQL({

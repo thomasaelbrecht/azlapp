@@ -42,7 +42,7 @@ export interface MemberFilterParams {
   IsDroppedOut?: boolean;
 }
 
-export interface Address {
+interface Address {
   Id: number;
   ExternalId: string | null;
   Street: string;
@@ -57,7 +57,7 @@ export interface Address {
   Longitude: number | null;
 }
 
-export interface Person {
+interface Person {
   Id: number;
   ExternalId: string | null;
   FirstName: string;
@@ -81,17 +81,17 @@ export interface Person {
   NumberFederation: string | null;
 }
 
-export interface Function {
+interface Function {
   Id: number;
   Name: string;
 }
 
-export interface Team {
+interface Team {
   Id: number;
   Name: string;
 }
 
-export interface AssignedFunction {
+interface AssignedFunction {
   Id: number;
   MemberId: number;
   FunctionId: number;
@@ -101,7 +101,7 @@ export interface AssignedFunction {
   Disabled: boolean;
 }
 
-export interface MemberResponse {
+interface MemberResponse {
   Person: Person;
   AssignedFunctions: AssignedFunction[];
   Products: unknown;
@@ -141,7 +141,7 @@ export interface MemberResponse {
   Remark: string | null;
 }
 
-export interface Member {
+interface Member {
   person: {
     id: number;
     firstName: string;

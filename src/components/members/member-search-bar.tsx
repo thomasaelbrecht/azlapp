@@ -26,7 +26,7 @@ export function MemberSearchBar({ groups }: MemberSearchBarProps) {
 
   return (
     <div className="flex gap-2">
-      <div className="relative flex-1 min-w-48">
+      <div className="relative flex-1">
         <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
         <Input
           placeholder="Zoeken op naam..."

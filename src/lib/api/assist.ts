@@ -1,3 +1,5 @@
+import "server-only";
+
 import env from "@/lib/env/server";
 import {
   AssistApiError,
@@ -64,6 +66,7 @@ export class AssistApi {
         headers,
         body: body ? JSON.stringify(body) : undefined,
         signal: options?.signal || controller.signal,
+        cache: "no-store",
       });
 
       clearTimeout(timeoutId);

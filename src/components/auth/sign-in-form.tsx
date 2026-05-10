@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { signIn } from "@/lib/auth-client";
 
 const signInSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -37,7 +37,7 @@ export function SignInForm() {
     });
 
     if (result.error) {
-      setError(result.error.message);
+      setError(result.error.message || "An error occurred during sign in");
     } else {
       router.push("/dashboard");
     }

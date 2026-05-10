@@ -4,6 +4,8 @@ import { PageLayout } from "@/components/layout/page-layout";
 import { getMemberTeams, getWorkingYears } from "@/services/assist";
 import { getAssistSettings } from "@/services/settings";
 
+export const dynamic = "force-dynamic";
+
 export default async function AssistAdminPage() {
   const [assistSettings, workingYears, memberTeams] = await Promise.all([
     getAssistSettings(),

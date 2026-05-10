@@ -6,8 +6,9 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  type SortingState, useReactTable,
-  type VisibilityState
+  type SortingState,
+  useReactTable,
+  type VisibilityState,
 } from "@tanstack/react-table";
 import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon } from "lucide-react";
 import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
@@ -130,19 +131,14 @@ export function DataTable<TData extends { id: string }, TValue>({
           {total === 0 ? "Geen resultaten" : `${from}–${to} van ${total}`}
         </p>
         <div className="flex items-center gap-1">
-          <Button
-            variant="outline"
-            size="icon-sm"
-            disabled={params.page <= 1}
-            onClick={() => setParams({ page: 1})}
-          >
+          <Button variant="outline" size="icon-sm" disabled={params.page <= 1} onClick={() => setParams({ page: 1 })}>
             <ChevronsLeftIcon />
           </Button>
           <Button
             variant="outline"
             size="icon-sm"
             disabled={params.page <= 1}
-            onClick={() => setParams({ page: params.page - 1})}
+            onClick={() => setParams({ page: params.page - 1 })}
           >
             <ChevronLeftIcon />
           </Button>
@@ -153,7 +149,7 @@ export function DataTable<TData extends { id: string }, TValue>({
             variant="outline"
             size="icon-sm"
             disabled={params.page >= totalPages}
-            onClick={() => setParams({ page: params.page + 1})}
+            onClick={() => setParams({ page: params.page + 1 })}
           >
             <ChevronRightIcon />
           </Button>

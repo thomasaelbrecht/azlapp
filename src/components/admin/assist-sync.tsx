@@ -18,7 +18,7 @@ export function AssistMemberSync({ hasInitialSettings }: { hasInitialSettings: b
     }
 
     if (data?.success) {
-      toast.success(data.message || "Ledensynchronisatie succesvol voltooid");
+      toast.success("Ledensynchronisatie voltooid");
     } else {
       toast.error(data?.error || "Ledensynchronisatie mislukt");
     }

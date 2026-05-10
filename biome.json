@@ -13,8 +13,7 @@
       "!.next",
       "!dist",
       "!build",
-      "!migrations",
-      "!src/components/ui"
+      "!migrations"
     ]
   },
   "formatter": {
@@ -40,6 +39,7 @@
       },
       "correctness": {
         "noUnusedVariables": "error",
+
         "useExhaustiveDependencies": {
           "level": "error",
           "options": {

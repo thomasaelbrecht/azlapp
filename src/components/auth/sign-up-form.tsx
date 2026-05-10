@@ -37,12 +37,10 @@ export function SignUpForm() {
       email: data.email,
       password: data.password,
       name: `${data.firstName} ${data.lastName}`,
-      firstName: data.firstName,
-      lastName: data.lastName,
     });
 
     if (result.error) {
-      setError(result.error.message);
+      setError(result.error.message || "An error occurred during sign up");
     } else {
       router.push("/dashboard");
     }

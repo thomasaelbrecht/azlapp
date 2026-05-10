@@ -1,9 +1,10 @@
+import type { ReactNode } from "react";
 import { PageTitle } from "./page-title";
 
 interface PageLayoutProps {
   title?: string;
-  children: React.ReactNode;
-  actions?: React.ReactNode;
+  children: ReactNode;
+  actions?: ReactNode;
 }
 
 export function PageLayout({ title, children, actions }: PageLayoutProps) {

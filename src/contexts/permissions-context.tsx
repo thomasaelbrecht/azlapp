@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo } from "react";
+import { createContext, type ReactNode, useCallback, useContext, useMemo } from "react";
 import { useSession } from "@/lib/auth-client";
 import { hasPermissions, type PermissionCheckOptions } from "@/lib/permissions";
 import type { Session } from "@/types/auth";
@@ -13,7 +13,7 @@ interface PermissionsContextType {
 const PermissionsContext = createContext<PermissionsContextType | undefined>(undefined);
 
 interface PermissionsProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function usePermissions() {

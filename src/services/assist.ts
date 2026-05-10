@@ -1,3 +1,5 @@
+"use server";
+
 import { and, eq, isNull } from "drizzle-orm";
 import { db, type Transaction } from "@/db";
 import { assistSettings, groups, members, membersToGroups } from "@/db/schema";

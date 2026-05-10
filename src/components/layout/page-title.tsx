@@ -1,10 +1,11 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { SidebarCollapseButton, SidebarTrigger } from "../ui/sidebar";
 
 interface PageTitleProps {
-  children: React.ReactNode;
-  actions?: React.ReactNode;
+  children: ReactNode;
+  actions?: ReactNode;
 }
 
 export function PageTitle({ children, actions }: PageTitleProps) {

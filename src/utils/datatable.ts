@@ -17,15 +17,16 @@ interface SortParamsToSQLOptions {
 export function paginationParamsToSQL({
   page,
   pageSize,
-  defaultPage = 1,
-  defaultPageSize = 10,
+  defaultPage = 0,
+  defaultPageSize = 25,
 }: PaginationParamsToSQLOptions) {
-  const validPage = Math.max(1, page || defaultPage);
+  // Pages are 0-based: page 0 is the first page
+  const validPage = Math.max(0, page ?? defaultPage);
   const validPageSize = Math.max(1, pageSize || defaultPageSize);
 
   return {
     limit: validPageSize,
-    offset: (validPage - 1) * validPageSize,
+    offset: validPage * validPageSize,
   };
 }
 

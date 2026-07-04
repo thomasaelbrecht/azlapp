@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   description: "Applicatie ter ondersteuning van de lesgevers van AZL",
 };
 
+const nuqsOptions: React.ComponentProps<typeof NuqsAdapter>["defaultOptions"] = {
+  shallow: false,
+  clearOnDefault: true,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${nunito.className} ${geistMono.className} antialiased`}>
-        <NuqsAdapter>
+        <NuqsAdapter defaultOptions={nuqsOptions}>
           <SidebarProvider>
             <AppSidebar />
 

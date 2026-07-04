@@ -4,7 +4,7 @@ import { and, eq, isNull } from "drizzle-orm";
 import { db, type Transaction } from "@/db";
 import { assistSettings, groups, members, membersToGroups } from "@/db/schema";
 import { AssistApi } from "@/lib/api/assist";
-import type { MemberTeamsResponse, WorkingYear } from "@/types/api/assist";
+import type { MemberTeam, MemberTeamsResponse, WorkingYear } from "@/types/api/assist";
 import { Gender } from "@/types/members";
 import type { AssistSettings, UpdateAssistSettings } from "@/types/settings";
 
@@ -23,6 +23,19 @@ export async function getWorkingYears(): Promise<WorkingYear[]> {
 
 export async function getMemberTeams(): Promise<MemberTeamsResponse> {
   return await getAssistApiInstance().getMemberTeams();
+}
+
+export async function getLeafMemberTeams(): Promise<{ id: number; name: string }[]> {
+  const teamsResponse = await getMemberTeams();
+
+  const flattenTeams = (teams: MemberTeam[]): MemberTeam[] => {
+    return teams.flatMap(team => [team, ...flattenTeams(team.children)]);
+  };
+
+  // Only leaf teams can be attached to a group, parents are just containers
+  return flattenTeams(teamsResponse.items)
+    .filter(team => team.children.length === 0)
+    .map(({ id, name }) => ({ id, name }));
 }
 
 export async function updateAssistSettings(data: UpdateAssistSettings): Promise<void> {

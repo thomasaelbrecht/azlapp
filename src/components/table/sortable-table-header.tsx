@@ -1,6 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon } from "lucide-react";
-import { useQueryStates } from "nuqs";
-import { memberSearchParams } from "@/app/members/search-params";
+import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
 import { Button } from "@/components/ui/button";
 
 interface SortableHeaderProps {
@@ -8,8 +7,13 @@ interface SortableHeaderProps {
   label: string;
 }
 
+const sortableHeaderSearchParams = {
+  sort: parseAsString.withDefault(""),
+  page: parseAsInteger.withDefault(0),
+};
+
 export function SortableHeader({ column, label }: SortableHeaderProps) {
-  const [{ sort: currentSort }, setParams] = useQueryStates(memberSearchParams, { shallow: false });
+  const [{ sort: currentSort }, setParams] = useQueryStates(sortableHeaderSearchParams, { shallow: false });
 
   const [currentSortColumn, sortDirection] = currentSort.split(":");
   const isActive = currentSortColumn === column;
@@ -20,7 +24,7 @@ export function SortableHeader({ column, label }: SortableHeaderProps) {
     if (!isActive) return;
 
     const newDir = isAsc ? "DESC" : "ASC";
-    setParams({ sort: `${currentSortColumn}:${newDir}`, page: 1 });
+    setParams({ sort: `${currentSortColumn}:${newDir}`, page: 0 });
   };
 
   return (

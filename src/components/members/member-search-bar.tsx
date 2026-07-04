@@ -1,12 +1,13 @@
 "use client";
 
-import { FilterIcon, SearchIcon, XIcon } from "lucide-react";
+import { FilterIcon, XIcon } from "lucide-react";
 import { useQueryStates } from "nuqs";
 import { memberSearchParams } from "@/app/members/search-params";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { SearchBar } from "@/components/ui/search-bar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Gender } from "@/types/members";
@@ -22,19 +23,11 @@ export function MemberSearchBar({ groups }: MemberSearchBarProps) {
     v => v !== null && v !== "",
   ).length;
 
-  const clearFilters = () => setParams({ gender: "", groupId: "", birthYearFrom: null, birthYearTo: null, page: 1 });
+  const clearFilters = () => setParams({ gender: "", groupId: "", birthYearFrom: null, birthYearTo: null, page: 0 });
 
   return (
     <div className="flex gap-2">
-      <div className="relative flex-1">
-        <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
-        <Input
-          placeholder="Zoeken op naam..."
-          value={params.search}
-          className="pl-8"
-          onChange={e => setParams({ search: e.target.value, page: 1 })}
-        />
-      </div>
+      <SearchBar />
 
       <Popover>
         <PopoverTrigger asChild>
@@ -68,7 +61,7 @@ export function MemberSearchBar({ groups }: MemberSearchBarProps) {
               <Label>Geslacht</Label>
               <Select
                 value={params.gender}
-                onValueChange={val => setParams({ gender: val === "all" ? "" : val, page: 1 })}
+                onValueChange={val => setParams({ gender: val === "all" ? "" : val, page: 0 })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Alle geslachten" />
@@ -86,7 +79,7 @@ export function MemberSearchBar({ groups }: MemberSearchBarProps) {
               <Label>Groep</Label>
               <Select
                 value={params.groupId}
-                onValueChange={val => setParams({ groupId: val === "all" ? "" : val, page: 1 })}
+                onValueChange={val => setParams({ groupId: val === "all" ? "" : val, page: 0 })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Alle groepen" />
@@ -110,7 +103,7 @@ export function MemberSearchBar({ groups }: MemberSearchBarProps) {
                   placeholder="Van"
                   value={params.birthYearFrom ?? ""}
                   className="h-9"
-                  onChange={e => setParams({ birthYearFrom: e.target.value ? Number(e.target.value) : null, page: 1 })}
+                  onChange={e => setParams({ birthYearFrom: e.target.value ? Number(e.target.value) : null, page: 0 })}
                 />
                 <span className="text-muted-foreground text-sm shrink-0">-</span>
                 <Input
@@ -118,7 +111,7 @@ export function MemberSearchBar({ groups }: MemberSearchBarProps) {
                   placeholder="Tot"
                   value={params.birthYearTo ?? ""}
                   className="h-9"
-                  onChange={e => setParams({ birthYearTo: e.target.value ? Number(e.target.value) : null, page: 1 })}
+                  onChange={e => setParams({ birthYearTo: e.target.value ? Number(e.target.value) : null, page: 0 })}
                 />
               </div>
             </div>

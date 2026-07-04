@@ -14,7 +14,10 @@ import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon 
 import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
+const PAGE_SIZE_OPTIONS = [10, 25, 50, 100];
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -24,8 +27,8 @@ interface DataTableProps<TData, TValue> {
 }
 
 const dataTableSearchParams = {
-  page: parseAsInteger.withDefault(1),
-  pageSize: parseAsInteger.withDefault(10),
+  page: parseAsInteger.withDefault(0),
+  pageSize: parseAsInteger.withDefault(25),
   sort: parseAsString.withDefault(""),
 };
 
@@ -38,7 +41,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const [params, setParams] = useQueryStates(dataTableSearchParams);
+  const [params, setParams] = useQueryStates(dataTableSearchParams, { shallow: false });
 
   const sorting = useMemo<SortingState>(() => {
     if (!params.sort) return [];
@@ -67,21 +70,21 @@ export function DataTable<TData extends { id: string }, TValue>({
     initialState: {
       pagination: {
         pageSize: params.pageSize,
-        pageIndex: params.page - 1,
+        pageIndex: params.page,
       },
     },
   });
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: table is intentionally excluded as it's recreated each render
   useEffect(() => {
-    table.setPageIndex(params.page - 1);
+    table.setPageIndex(params.page);
     table.setPageSize(params.pageSize);
   }, [params.page, params.pageSize]);
 
   const totalPages = table.getPageCount();
   const total = rowCount ?? 0;
-  const from = total === 0 ? 0 : (params.page - 1) * params.pageSize + 1;
-  const to = Math.min(params.page * params.pageSize, total);
+  const from = total === 0 ? 0 : params.page * params.pageSize + 1;
+  const to = Math.min((params.page + 1) * params.pageSize, total);
 
   return (
     <div className="rounded-xl border overflow-hidden">
@@ -126,41 +129,61 @@ export function DataTable<TData extends { id: string }, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-between border-t bg-muted/30 px-4 py-3">
+      <div className="flex items-center justify-between gap-4 border-t bg-muted/30 px-4 py-3">
         <p className="text-sm text-muted-foreground">
           {total === 0 ? "Geen resultaten" : `${from}–${to} van ${total}`}
         </p>
-        <div className="flex items-center gap-1">
-          <Button variant="outline" size="icon-sm" disabled={params.page <= 1} onClick={() => setParams({ page: 1 })}>
-            <ChevronsLeftIcon />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon-sm"
-            disabled={params.page <= 1}
-            onClick={() => setParams({ page: params.page - 1 })}
-          >
-            <ChevronLeftIcon />
-          </Button>
-          <span className="text-sm px-2">
-            {params.page} / {totalPages || 1}
-          </span>
-          <Button
-            variant="outline"
-            size="icon-sm"
-            disabled={params.page >= totalPages}
-            onClick={() => setParams({ page: params.page + 1 })}
-          >
-            <ChevronRightIcon />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon-sm"
-            disabled={params.page >= totalPages}
-            onClick={() => setParams({ page: totalPages })}
-          >
-            <ChevronsRightIcon />
-          </Button>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground hidden sm:block">Rijen per pagina</span>
+            <Select
+              value={params.pageSize.toString()}
+              onValueChange={value => setParams({ pageSize: Number(value), page: 0 })}
+            >
+              <SelectTrigger className="h-8 py-1 w-18">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {PAGE_SIZE_OPTIONS.map(size => (
+                  <SelectItem key={size} value={size.toString()}>
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center gap-1">
+            <Button variant="outline" size="icon-sm" disabled={params.page <= 0} onClick={() => setParams({ page: 0 })}>
+              <ChevronsLeftIcon />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon-sm"
+              disabled={params.page <= 0}
+              onClick={() => setParams({ page: params.page - 1 })}
+            >
+              <ChevronLeftIcon />
+            </Button>
+            <span className="text-sm px-2">
+              {params.page + 1} / {totalPages || 1}
+            </span>
+            <Button
+              variant="outline"
+              size="icon-sm"
+              disabled={params.page >= totalPages - 1}
+              onClick={() => setParams({ page: params.page + 1 })}
+            >
+              <ChevronRightIcon />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon-sm"
+              disabled={params.page >= totalPages - 1}
+              onClick={() => setParams({ page: totalPages - 1 })}
+            >
+              <ChevronsRightIcon />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

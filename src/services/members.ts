@@ -32,7 +32,7 @@ const SORT_COLUMNS = {
   birthDate: members.birthDate,
 } as const;
 
-export async function getAllMembers({ page = 1, pageSize = 50, sort, ...filters }: MemberFilters = {}): Promise<{
+export async function getAllMembers({ page = 0, pageSize = 25, sort, ...filters }: MemberFilters = {}): Promise<{
   items: MemberListItem[];
   total: number;
   page: number;

@@ -7,3 +7,13 @@ export enum TrainingDay {
   SATURDAY = "SATURDAY",
   SUNDAY = "SUNDAY",
 }
+
+export const trainingDayLabels: Record<TrainingDay, string> = {
+  [TrainingDay.MONDAY]: "Maandag",
+  [TrainingDay.TUESDAY]: "Dinsdag",
+  [TrainingDay.WEDNESDAY]: "Woensdag",
+  [TrainingDay.THURSDAY]: "Donderdag",
+  [TrainingDay.FRIDAY]: "Vrijdag",
+  [TrainingDay.SATURDAY]: "Zaterdag",
+  [TrainingDay.SUNDAY]: "Zondag",
+};
